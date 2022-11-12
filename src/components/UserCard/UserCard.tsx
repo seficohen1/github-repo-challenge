@@ -1,29 +1,32 @@
+import { useContext, useEffect } from 'react'
+import { SearchContext } from '../../context/SearchContext'
 import SearchBar from '../SearchBar/SearchBar'
 
 import UserCardStyled from './UserCard.styled'
 
 const UserCard = () => {
+  const { searchState } = useContext(SearchContext)
+  const { user } = searchState
+  useEffect(() => {}, [user])
+
   return (
     <>
-      <SearchBar />
+      <SearchBar section='user' />
       <UserCardStyled>
         <div className='user-info'>
           <div className='avatar'>
-            <img
-              src='https://images.unsplash.com/photo-1597223557154-721c1cecc4b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW4lMjBmYWNlfGVufDB8fDB8fA%3D%3D&w=1000&q=80'
-              alt='avatar'
-            />
+            <img src={user.avatar} alt='avatar' />
           </div>
           <div className='personal-info'>
-            <h4>Sefi Cohen</h4>
-            <span>seficohen1</span>
+            <h4>{user.fullName}</h4>
+            <span>{user.username}</span>
           </div>
         </div>
         <div className='data'>
           <div className='data-followers'>
             <i className='fa-solid fa-users'></i>
-            <span> 13 followers </span>
-            <span> 10 followers </span>
+            <span> {user.followers} followers </span>
+            <span> {user.following} following </span>
           </div>
         </div>
       </UserCardStyled>

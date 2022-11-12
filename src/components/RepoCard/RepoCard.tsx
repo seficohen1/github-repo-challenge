@@ -1,33 +1,33 @@
+import { Repo } from '../../interfaces/intrefaces'
 import RepoCardStyled from './RepoCard.styeld'
 
-const RepoCard = () => {
+interface Props {
+  repo: Repo
+}
+
+const RepoCard = ({ name, description, stars, isPrivate, updated, language }: Repo) => {
   return (
     <RepoCardStyled>
       <header className='repo-header'>
-        <h3>gitub-repo-challenge</h3>
-        <div className='repo-status'>Private</div>
+        <h3>{name}</h3>
+        <div className='repo-status'>{isPrivate ? 'Private' : 'Public'}</div>
       </header>
       <div className='repo-description'>
         <div className='description'>
-          <small className='repo-fork-info'>Forked from SquadTuring1/final-project-back</small>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae ad nihil magni vero ullam
-            error ducimus aliquid necessitatibus suscipit, non nemo nulla nisi dolor beatae iusto in
-            possimus at! Vitae?
-          </p>
+          <p>{description}</p>
         </div>
       </div>
       <div className='repo-data'>
         <span className='language-color'></span>
         <div className='repo-data-langauge'>
-          <span className='langauge-type'>JavaScript</span>
+          <span className='langauge-type'>{language}</span>
         </div>
         <div className='repo-data-star'>
           <i className='fa-solid fa-star'></i>
-          <span className='stars'>33</span>
+          <span className='stars'>{stars}</span>
         </div>
         <div className='repo-data-updated'>
-          <span>updated sometime ago</span>
+          <span>{updated}</span>
         </div>
       </div>
     </RepoCardStyled>
