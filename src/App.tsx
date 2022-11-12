@@ -1,9 +1,12 @@
+import { SearchProvider } from './context/SearchContext'
 import Main from './pages/Main/Main'
 
 function App() {
   return (
     <>
-      <Main />
+      <SearchProvider>
+        <Main />
+      </SearchProvider>
     </>
   )
 }
