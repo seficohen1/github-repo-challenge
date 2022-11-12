@@ -6,7 +6,7 @@ const RepoContainer = () => {
     <article>
       <SearchBar />
       <hr />
-      <p>repo card components</p> /** Repo Card HERE */
+      <RepoCard />
       <hr />
     </article>
   )
