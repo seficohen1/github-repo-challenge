@@ -8,7 +8,8 @@ export type Props = {
 
 const SearchBar = ({ section }: Props) => {
   const [inputField, setInputField] = useState<string>('')
-  const { setUser, searchState } = useContext(SearchContext)
+  const { setUser, searchState, resetState } = useContext(SearchContext)
+  const { user } = searchState
 
   const placeholderText =
     section === 'user' ? 'Type username to search for a user' : 'Find Repository by this user'
@@ -17,8 +18,10 @@ const SearchBar = ({ section }: Props) => {
     setInputField(e.target.value)
   }
   const handleOnKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    console.log(section)
     if (e.code === 'Enter') {
       if (section === 'user') {
+        resetState()
         getUserGithubInfo(inputField).then((res) =>
           setUser(res.login, res.name, res.avatar_url, res.following, res.followers),
         )

@@ -1,6 +1,6 @@
-import { Children, createContext, useReducer } from 'react'
+import { createContext, useReducer } from 'react'
 import { Repo, SearchState } from '../interfaces/intrefaces'
-import { getUserGithubInfo } from '../services/github-api'
+
 import { searchReducer } from './SearchReducer'
 
 export type SearchContextProps = {
@@ -12,6 +12,8 @@ export type SearchContextProps = {
     following: number,
     followers: number,
   ) => void
+  setRepos: (repo: Repo[]) => void
+  resetState: () => void
 }
 
 export const SearchContext = createContext<SearchContextProps>({} as SearchContextProps)
@@ -22,7 +24,7 @@ interface Props {
 
 const INITIAL_STATE: SearchState = {
   user: {
-    username: 'seficohen1',
+    username: '',
     fullName: '',
     avatar: 'https://avatars.githubusercontent.com/u/67965039?v=4',
     following: 0,
@@ -43,6 +45,7 @@ const INITIAL_STATE: SearchState = {
 
 export const SearchProvider = ({ children }: Props) => {
   const [searchState, dispatch] = useReducer(searchReducer, INITIAL_STATE)
+
   const setUser = (
     username: string,
     fullName: string,
@@ -51,7 +54,16 @@ export const SearchProvider = ({ children }: Props) => {
     followers: number,
   ) => dispatch({ type: 'SET_USER', payload: { username, fullName, avatar, following, followers } })
 
+  const setRepos = (repo: Repo[]) =>
+    dispatch({
+      type: 'SET_REPOS',
+      payload: repo,
+    })
+  const resetState = () => dispatch({ type: 'RESET' })
+
   return (
-    <SearchContext.Provider value={{ searchState, setUser }}>{children}</SearchContext.Provider>
+    <SearchContext.Provider value={{ searchState, setUser, setRepos, resetState }}>
+      {children}
+    </SearchContext.Provider>
   )
 }
