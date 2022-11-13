@@ -1,7 +1,7 @@
 import { Repo, SearchState } from '../interfaces/intrefaces';
 
 
-type ActionType  = {type: 'SET_REPOS', payload: Repo[]} | {type: 'SET_USER', payload: {username: string, fullName: string, avatar: string, following: number, followers: number}} | {type: 'RESET'}
+type ActionType  = {type: 'SET_REPOS', payload: Repo[]} | {type: 'SET_USER', payload: {username: string, fullName: string, avatar: string, following: number, followers: number}} | {type: 'SET_KEYWORD', payload: string}
 
 export const searchReducer = (state: SearchState, action: ActionType): SearchState => {
 
@@ -16,9 +16,11 @@ export const searchReducer = (state: SearchState, action: ActionType): SearchSta
           ...state,
           repos: action.payload
         }
-      case 'RESET': {
-        return state
-      }
+      case 'SET_KEYWORD': 
+        return {
+          ...state,
+          keyword: action.payload
+        }
     default:
       return state
   }

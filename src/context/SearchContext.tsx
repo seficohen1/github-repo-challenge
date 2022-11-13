@@ -13,7 +13,7 @@ export type SearchContextProps = {
     followers: number,
   ) => void
   setRepos: (repo: Repo[]) => void
-  resetState: () => void
+  setKeyword: (keyword: string) => void
 }
 
 export const SearchContext = createContext<SearchContextProps>({} as SearchContextProps)
@@ -41,6 +41,7 @@ const INITIAL_STATE: SearchState = {
       stars: 8,
     },
   ],
+  keyword: '',
 }
 
 export const SearchProvider = ({ children }: Props) => {
@@ -59,10 +60,11 @@ export const SearchProvider = ({ children }: Props) => {
       type: 'SET_REPOS',
       payload: repo,
     })
-  const resetState = () => dispatch({ type: 'RESET' })
+
+  const setKeyword = (keyboard: string) => dispatch({ type: 'SET_KEYWORD', payload: keyboard })
 
   return (
-    <SearchContext.Provider value={{ searchState, setUser, setRepos, resetState }}>
+    <SearchContext.Provider value={{ searchState, setUser, setRepos, setKeyword }}>
       {children}
     </SearchContext.Provider>
   )

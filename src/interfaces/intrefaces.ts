@@ -112,6 +112,7 @@ export interface SearchState {
 
   },
   repos: Repo[]
+  keyword: string
 }
 
 export interface Repo {

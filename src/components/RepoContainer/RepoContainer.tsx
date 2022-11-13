@@ -1,12 +1,13 @@
 import SearchBar from '../SearchBar/SearchBar'
 import RepoCard from '../RepoCard/RepoCard'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { SearchContext } from '../../context/SearchContext'
-import { getUserGithubInfo } from '../../services/github-api'
+import { getUserGithubInfo, Repo } from '../../services/github-api'
+import { searchWithRegex } from '../../helpers/searchWithRegex'
 
 const RepoContainer = () => {
   const { searchState, setRepos } = useContext(SearchContext)
-  const { repos, user } = searchState
+  const { repos, user, keyword } = searchState
 
   useEffect(() => {
     // Updating all repos after searching for a username
@@ -15,7 +16,6 @@ const RepoContainer = () => {
     }
   }, [user.username])
 
-  console.log(searchState)
   const renderRepos = repos.map(
     ({ id, name, description, language, isPrivate, updated, stars }) => (
       <RepoCard
@@ -34,7 +34,20 @@ const RepoContainer = () => {
     <article>
       <SearchBar section='repos' />
       <hr />
-      {renderRepos}
+      {keyword.length > 0
+        ? searchWithRegex(repos, keyword).map((repo) => (
+            <RepoCard
+              key={repo.id}
+              id={repo.id}
+              name={repo.name}
+              description={repo.description}
+              language={repo.language}
+              isPrivate={repo.isPrivate}
+              updated={repo.updated}
+              stars={repo.stars}
+            />
+          ))
+        : renderRepos}
       <hr />
     </article>
   )
