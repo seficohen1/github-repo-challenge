@@ -1,13 +1,17 @@
 import { useContext, useEffect } from 'react'
 import { SearchContext } from '../../context/SearchContext'
 import SearchBar from '../SearchBar/SearchBar'
-
 import UserCardStyled from './UserCard.styled'
 
+export type Props = {
+  section: string
+}
 const UserCard = () => {
   const { searchState } = useContext(SearchContext)
   const { user } = searchState
-  useEffect(() => {}, [user])
+  useEffect(() => {
+    console.log('hi')
+  }, [user])
 
   return (
     <>
@@ -24,13 +28,18 @@ const UserCard = () => {
         </div>
         <div className='data'>
           <div className='data-followers'>
-            <i className='fa-solid fa-users'></i>
-            <span> {user.followers} followers </span>
-            <span> {user.following} following </span>
+            <i className='icon-follow fa-solid fa-users'></i>
+            <span>
+              {' '}
+              <span className='bold'>{user.followers}</span> followers{' '}
+            </span>
+            <span>
+              {' '}
+              <span className='bold'>{user.following}</span> following{' '}
+            </span>
           </div>
         </div>
       </UserCardStyled>
-      <hr />
     </>
   )
 }

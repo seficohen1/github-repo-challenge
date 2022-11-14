@@ -8,10 +8,20 @@ const WelcomeStyled = styled.main`
   justify-content: center ;
   text-align: center ;
 
+
 .github-icon {
   font-size: 3rem ;
   margin: 1rem;
+  color: var(--comp1)
 }
+.search-bar {
+width: 15rem;
+ align-self:  center;
+
+}
+
+
+ 
 `
 
 export default WelcomeStyled

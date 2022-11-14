@@ -2,8 +2,9 @@ import SearchBar from '../SearchBar/SearchBar'
 import RepoCard from '../RepoCard/RepoCard'
 import { useContext, useEffect } from 'react'
 import { SearchContext } from '../../context/SearchContext'
-import { getUserGithubInfo, Repo } from '../../services/github-api'
+import { getUserGithubInfo } from '../../services/github-api'
 import { searchWithRegex } from '../../helpers/searchWithRegex'
+import Error from '../Error/Error'
 
 const RepoContainer = () => {
   const { searchState, setRepos } = useContext(SearchContext)
@@ -30,26 +31,33 @@ const RepoContainer = () => {
       />
     ),
   )
+
   return (
-    <article>
-      <SearchBar section='repos' />
-      <hr />
-      {keyword.length > 0
-        ? searchWithRegex(repos, keyword).map((repo) => (
-            <RepoCard
-              key={repo.id}
-              id={repo.id}
-              name={repo.name}
-              description={repo.description}
-              language={repo.language}
-              isPrivate={repo.isPrivate}
-              updated={repo.updated}
-              stars={repo.stars}
-            />
-          ))
-        : renderRepos}
-      <hr />
-    </article>
+    <>
+      {repos.length === 0 ? (
+        <Error message='User has no repositories'>no repos</Error>
+      ) : (
+        <>
+          <article>
+            <SearchBar section='repos' />
+            {keyword.length > 0
+              ? searchWithRegex(repos, keyword).map((repo) => (
+                  <RepoCard
+                    key={repo.id}
+                    id={repo.id}
+                    name={repo.name}
+                    description={repo.description}
+                    language={repo.language}
+                    isPrivate={repo.isPrivate}
+                    updated={repo.updated}
+                    stars={repo.stars}
+                  />
+                ))
+              : renderRepos}
+          </article>
+        </>
+      )}
+    </>
   )
 }
 

@@ -1,16 +1,13 @@
 import { Repo } from '../../interfaces/intrefaces'
-import RepoCardStyled from './RepoCard.styeld'
+import RepoCardStyled, { ColoredDot, Status } from './RepoCard.styeld'
 
-interface Props {
-  repo: Repo
-}
-
-const RepoCard = ({ name, description, stars, isPrivate, updated, language }: Repo) => {
+const RepoCard = ({ id, name, description, stars, isPrivate, updated, language }: Repo) => {
+  const lastUpdated: Date = new Date(updated)
   return (
     <RepoCardStyled>
       <header className='repo-header'>
         <h3>{name}</h3>
-        <div className='repo-status'>{isPrivate ? 'Private' : 'Public'}</div>
+        <Status isPrivate={isPrivate}>{isPrivate ? 'Private' : 'Public'}</Status>
       </header>
       <div className='repo-description'>
         <div className='description'>
@@ -18,17 +15,21 @@ const RepoCard = ({ name, description, stars, isPrivate, updated, language }: Re
         </div>
       </div>
       <div className='repo-data'>
-        <span className='language-color'></span>
-        <div className='repo-data-langauge'>
-          <span className='langauge-type'>{language}</span>
-        </div>
+        {language && (
+          <>
+            <ColoredDot color={language} />
+            <div className='repo-data-langauge'>
+              <span className='langauge-type'>{language}</span>
+            </div>
+          </>
+        )}
         <div className='repo-data-star'>
-          <i className='fa-solid fa-star'></i>
+          <i className='star-icon fa-solid fa-star'></i>
           <span className='stars'>{stars}</span>
         </div>
-        <div className='repo-data-updated'>
+        {/* <div className='repo-data-updated'>
           <span>{updated}</span>
-        </div>
+        </div> */}
       </div>
     </RepoCardStyled>
   )
