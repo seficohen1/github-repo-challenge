@@ -1,5 +1,4 @@
 
-
 // export interface Repo {
 //   id: string,
 //   node_id: string,
@@ -113,6 +112,7 @@ export interface SearchState {
   },
   repos: Repo[]
   keyword: string
+  error: boolean
 }
 
 export interface Repo {

@@ -1,6 +1,8 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { SearchContext } from '../../context/SearchContext'
+import { useSearch } from '../../hooks/useSearchContex'
 import { getUserGithubInfo } from '../../services/github-api'
+import Input from '../../UI/Input.styled'
 
 export type Props = {
   section: string
@@ -10,7 +12,7 @@ export type Props = {
 
 const SearchBar = ({ section }: Props) => {
   const [inputField, setInputField] = useState<string>('')
-  const { setUser, setKeyword } = useContext(SearchContext)
+  const { setUser, setKeyword, setError } = useContext(SearchContext)
 
   const placeholderText =
     section === 'user' ? 'Type username to search for a user' : 'Find Repository by this user'
@@ -21,9 +23,12 @@ const SearchBar = ({ section }: Props) => {
   const handleOnKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === 'Enter') {
       if (section === 'user') {
-        getUserGithubInfo(inputField).then((res) =>
-          setUser(res.login, res.name, res.avatar_url, res.following, res.followers),
-        )
+        getUserGithubInfo(inputField).then((res) => {
+          if (res.message === 'Not Found') {
+            setError()
+          }
+          setUser(res.login, res.name, res.avatar_url, res.following, res.followers)
+        })
       }
     }
     if (section === 'repos') {
@@ -32,7 +37,7 @@ const SearchBar = ({ section }: Props) => {
   }
 
   return (
-    <input
+    <Input
       type='text'
       onKeyUp={handleOnKeyUp}
       onChange={hanldeOnChange}

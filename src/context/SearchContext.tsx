@@ -14,6 +14,7 @@ export type SearchContextProps = {
   ) => void
   setRepos: (repo: Repo[]) => void
   setKeyword: (keyword: string) => void
+  setError: () => void
 }
 
 export const SearchContext = createContext<SearchContextProps>({} as SearchContextProps)
@@ -42,6 +43,7 @@ const INITIAL_STATE: SearchState = {
     },
   ],
   keyword: '',
+  error: false,
 }
 
 export const SearchProvider = ({ children }: Props) => {
@@ -63,8 +65,15 @@ export const SearchProvider = ({ children }: Props) => {
 
   const setKeyword = (keyboard: string) => dispatch({ type: 'SET_KEYWORD', payload: keyboard })
 
+  const setError = () => {
+    setTimeout(() => {
+      dispatch({ type: 'SET_ERROR' })
+    }, 1500)
+    dispatch({ type: 'SET_ERROR' })
+  }
+
   return (
-    <SearchContext.Provider value={{ searchState, setUser, setRepos, setKeyword }}>
+    <SearchContext.Provider value={{ searchState, setUser, setRepos, setKeyword, setError }}>
       {children}
     </SearchContext.Provider>
   )
