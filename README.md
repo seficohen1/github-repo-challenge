@@ -26,13 +26,10 @@ The following project is a small app that allows a user to make use of GitHub AP
 
 Then run npm command to install all dependencies needed and npm start to run the app on your local machine.
 
-  ```shell
+```shell
 
 npm install
 
-```
-
-```shell
 
 npm start
 
@@ -118,6 +115,6 @@ npm install
 
 <br>
 
-  ## Author
+## Author
 
 - [Sefi Cohen](https://github.com/seficohen1)
