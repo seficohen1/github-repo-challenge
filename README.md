@@ -15,6 +15,7 @@ The following project is a small app that allows a user to make use of GitHub AP
 <br>
 
 ![](https://res.cloudinary.com/dio4xgjq5/image/upload/v1668438152/ezgif.com-gif-maker_otaxma.gif)
+<br>
 [Click for Demo](https://main--dreamy-horse-0acdc1.netlify.app/)
 
 
