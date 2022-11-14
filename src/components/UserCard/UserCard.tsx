@@ -9,7 +9,9 @@ export type Props = {
 const UserCard = () => {
   const { searchState } = useContext(SearchContext)
   const { user } = searchState
-  useEffect(() => {}, [user])
+  useEffect(() => {
+    console.log(user)
+  }, [user])
 
   return (
     <>
