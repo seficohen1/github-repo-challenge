@@ -1,8 +1,8 @@
 import { Repo } from '../../interfaces/intrefaces'
 import RepoCardStyled, { ColoredDot, Status } from './RepoCard.styeld'
 
-const RepoCard = ({ id, name, description, stars, isPrivate, updated, language }: Repo) => {
-  const lastUpdated: Date = new Date(updated)
+const RepoCard = ({ name, description, stars, isPrivate, language }: Repo) => {
+  // const lastUpdated: Date = new Date(updated)
   return (
     <RepoCardStyled>
       <header className='repo-header'>

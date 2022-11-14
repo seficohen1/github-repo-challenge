@@ -1,8 +1,5 @@
 import styled from 'styled-components';
 
-type Props = {
-  className: string
-}
 
 export const MainContainer = styled.main`
   display: grid;

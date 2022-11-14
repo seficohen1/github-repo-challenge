@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { SearchContext } from '../../context/SearchContext'
-import { useSearch } from '../../hooks/useSearchContex'
+
 import { getUserGithubInfo } from '../../services/github-api'
 import Input from '../../UI/Input.styled'
 

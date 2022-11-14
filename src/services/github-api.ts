@@ -20,7 +20,7 @@ export type Repo = {
 
 export const getUserGithubInfo = async (username: string, isRepo = false)=> {
   const URL = isRepo ? `${process.env.REACT_APP_BASE_URL}/users/${username}/repos` : `${process.env.REACT_APP_BASE_URL}/users/${username}`
-  let results: any
+  let results
 
   try {
     const response = await fetch(URL)
